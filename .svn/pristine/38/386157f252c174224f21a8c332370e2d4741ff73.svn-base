@@ -1,0 +1,129 @@
+M1. "W" means walls. "R" means random monsters. "P" means pac-man. "D" means a food space.
+	Walls should not be passable. For example, (2, 2)
+	
+M2.  1. assertTrue(b.canMoveTo(x, y-1)); in BoardTest.testMoveTo is failing. 
+	 hypothesis 1: moveTo is not correctly moving the given sprite to the proper location.
+	 hypothesis 2: canMoveTo is not giving correct booleans of whether a location is passable.
+	 hypothesis 3: something wrong with X and Y values in this line.
+	 
+	 hypothesis 1: rejected. I set a breakpoint at the beginning of the test,
+	 and when I debug the JUnit test, moveTo correctly moves the pac-man to correct locations.
+	 
+	 hypothesis 2. rejected. When I debug, canMoveTo is correctly giving true/false 
+	 whether a location is passable.
+	 
+	 hypothesis 3. ACCEPTED. When I debug, I found out that x and y doesn't become
+	 (1, 2) as expected, because the test didn't re-assign values to them after they
+	 have been moved to (1, 2). If I assign them to be (1, 2) before this line,
+	 the test passes.
+	 
+	 2. assertFalse(b.isGameOver()); in BoardTest.testIsGameOver is failing.
+	 hypothesis 1: isGameOver is not correctly deciding whether if a board has food or not.
+	 hypothesis 2: if the board has a food, isGameOver is still returning True. 
+	 
+	 hypothesis 1: ACCEPTED. When I debug, I found out that when isGameOver checks if one board
+	 has food, the boolean existFood is true when a grid contains food. But, if the next grid 
+	 does not contain food, existFood changes to false. This means that if the last passable
+	 grid on the board does not contain food, isGameOver decides that the whole board does not
+	 contain food. The test passed after I changed the code.
+	 hypothesis 2: rejected. The code of isGameOver shows that it does return false when
+	 board has one or more food.
+	 
+	 3. food.addSprite(new RandomMonster(b, 1, 1));
+		assertTrue(food.hasFood());                    in GridLocationTest.testAddSprite is failing
+		
+	 hypothesis 1: addSprite is not correctly adding a sprite to the given location.
+	 hypothesis 2: hasFood is not giving the correct boolean value
+	 hypothesis 3: the sprite eats the food when it's not suppose to.
+	 
+	 hypothesis 1: rejected. I examined the code of addSprite(RandomMonster s) and it adds the
+	 random monster to the given location correctly.
+	 hypothesis 2. rejected. I placed my break point on food.addSprite(new RandomMonster(b, 1, 1));
+	 and when I debugged, I found out that (1,1) does not have food, therefore hasFood returned the
+	 correct value.
+	 hypothesis 3: ACCEPTED. I examined the code of addSprite(RandomMonster s) and found out that
+	 the random monster eats the food. If I delete the line consumeFood(); in both
+	 addSprite(RandomMonster s) and addSprite(TrackerMonster s) the test passes. 
+	 
+	 4. 	assertTrue(currentDistance <= (smallestDistance + 2)); in TrackerMonsterTest.makeMove
+	        is failing.
+	 hypothesis 1: Board.tickBoard isn't working properly. 
+	 hypothesis 2: TrackerMonster.makeMove is not making the tracking monster moving towards pacman.
+	 
+	 hypothesis 1:rejected. I examined the code and noticed that tickBoard is functioning properly
+	 by making pacman, all tracker monster(s), and all random monster(s) move. The problem should be the
+	 makeMove method for tracer monster(s).
+	 hypothesis 2: ACCEPTED. When I played the game, it looked as if the Tracker Monster was moving
+	 away from pacman, rather than approaching it. I went to makeMove and traced to 
+	 getVerticalDirectionToPacman and getHorizontalDirectionToPacman. Then I found out that 
+	 these two methods were not functioning properly. When vertical direction should be up, it gives down, 
+	 and when it should be right, it gives left, and vice versa. After I changed the code, the test passed.
+	
+M3. 1. It modifies "this" because it is making changes to the board by moving the sprite to desired location.
+       It modifies the sprite because the sprite's location changes, which is making changes to the sprite. 
+       
+    2.  The original is better because EFFECTs don't need to specify what method will be needed and 
+        how are they used. 
+        
+        
+M4. 1. java.util.ArrayList, java.util.LinkedList, and java.util.List.
+    2. PacmanLab2
+	3. name: BOARD_WIDTH, an int, 
+	   name: BOARD_HEIGHT, an int,
+	   name: BOARD_DEFN, a string.
+	4. name: board,  type:List<List<GridLocation>>
+	   name: pacman, type: Pacman
+	   name: randomMonsters, type: List<RandomMonster>
+	   name: trackMonsters, type: List<TrackMonster>
+	5. public void tickBoard(), private void initBoard()
+	6. 
+	<package statement>
+	
+	<import statement>
+	
+	<class header> {
+	
+	<fields declarations>
+	
+	<method declarations>
+	
+	}
+	
+	7. 
+	package ca.ubc.cs.util;
+
+    import java.util.LinkedList;
+    
+    public class ListUtilities {
+    
+    Linkedlist data
+    
+    public LinkedList getData() {
+    
+    return data.Linkedlist
+    
+    }
+    
+    }
+    
+    8. constructor must have the same name as the class, and it does not return anything, 
+    while method returns something. 
+    
+    9. public ListUtilities()
+    
+ M5. 1. Write JUnit tests, and run them. If they fail, come up with hypotheses, set up break points, 
+        and then go debugging or examining codes.
+     2. Because with hypotheses, I have an idea of which direction to take when I'm debugging 
+     or looking at the codes.
+     3. I learned what a constructor is. For example, public Clock()
+     4. I learned how to use step-in in the debugger perspective. This is really useful if the code is calling another method.
+     5. I doubt I can write JUnit tests by myself without looking at other existing projects.
+     6. 4, 4, 3, 4, 4, 4, 4.
+    
+	   
+	   
+	   
+	   
+	   
+	   
+	 
